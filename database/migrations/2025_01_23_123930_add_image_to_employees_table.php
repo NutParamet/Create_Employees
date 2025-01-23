@@ -12,15 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('employees', function (Blueprint $table) {
+            // เพิ่มคอลัมน์ images หากยังไม่มี
             if (!Schema::hasColumn('employees', 'images')) {
-                $table->string('images')->nullable();
-            }
-            // Drop unnecessary columns
-            if (Schema::hasColumn('employees', 'image_path')) {
-                $table->dropColumn('image_path');
-            }
-            if (Schema::hasColumn('employees', 'photo')) {
-                $table->dropColumn('photo');
+                $table->string('images')->nullable()->after('hire_date'); // วางหลัง hire_date เพื่อความเป็นระเบียบ
             }
         });
     }
@@ -31,15 +25,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('employees', function (Blueprint $table) {
+            // ลบคอลัมน์ images หากมี
             if (Schema::hasColumn('employees', 'images')) {
                 $table->dropColumn('images');
-            }
-            // Add back the dropped columns
-            if (!Schema::hasColumn('employees', 'image_path')) {
-                $table->string('image_path')->nullable();
-            }
-            if (!Schema::hasColumn('employees', 'photo')) {
-                $table->string('photo')->nullable();
             }
         });
     }

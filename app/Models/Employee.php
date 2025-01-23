@@ -17,6 +17,6 @@ class Employee extends Model
         'gender',
         'birth_date',
         'hire_date',
-        'image_path', // ใช้คอลัมน์ image_path
+        'images',
     ];
 }

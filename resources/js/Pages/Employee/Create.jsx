@@ -175,6 +175,7 @@ export default function Create({ departments }) {
                             <input
                                 id="images"
                                 name="images"
+                                accept="image/*"
                                 type="file"
                                 className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.images ? 'border-red-500' : 'border-gray-300'}`}
                                 onChange={(e) => setData('images', e.target.files[0])}

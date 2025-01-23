@@ -61,12 +61,13 @@ class EmployeeController extends Controller
             'birth_date' => 'required|date',
             'hire_date' => 'required|date',
             'dept_no' => 'required|exists:departments,dept_no',
-            'images' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:10240',
+            'images' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
         $latestEmpNo = DB::table('employees')->max('emp_no') ?? 0;
         $newEmpNo = $latestEmpNo + 1;
 
+        $imagesPath = null;
         if ($request->hasFile('images')) {
             $imagesPath = $request->file('images')->store('employees', 'public');
             $validated['images'] = $imagesPath;
