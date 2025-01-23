@@ -91,8 +91,10 @@ export default function Index({ employees, query, sortField, sortOrder }) {
                                         <td className="border border-gray-300 px-4 py-2">{employee.last_name}</td>
                                         <td className="border border-gray-300 px-4 py-2">{employee.birth_date}</td>
                                         <td className="border border-gray-300 px-4 py-2">
-                                            {employee.images && (
-                                                <img src={`/storage/${employee.images}`} alt="Employee Images" className="w-16 h-16 rounded" />
+                                            {employee.images ? (
+                                                <img src={`/storage/${employee.images}`} alt="Employee Image" className="w-16 h-16 rounded" />
+                                            ) : (
+                                                <span>No Image</span>
                                             )}
                                         </td>
                                     </tr>

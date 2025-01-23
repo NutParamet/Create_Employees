@@ -11,12 +11,27 @@ export default function Create({ departments }) {
         birth_date: '',
         hire_date: '',
         dept_no: '',
-        images: null,
+        images: '',
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('employees.store'));
+        let formData = new FormData();
+        formData.append('first_name', data.first_name);
+        formData.append('last_name', data.last_name);
+        formData.append('gender', data.gender);
+        formData.append('birth_date', data.birth_date);
+        formData.append('hire_date', data.hire_date);
+        formData.append('dept_no', data.dept_no);
+        if (data.images) {
+            formData.append('images', data.images);
+        }
+        post(route('employees.store'), {
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
     };
 
     return (
@@ -154,7 +169,7 @@ export default function Create({ departments }) {
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="image" className="block text-gray-700 font-medium mb-2">
+                            <label htmlFor="images" className="block text-gray-700 font-medium mb-2">
                                 Image
                             </label>
                             <input

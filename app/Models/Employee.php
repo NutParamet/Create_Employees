@@ -9,7 +9,7 @@ class Employee extends Model
 {
     use HasFactory;
 
-    // กำหนดฟิลด์
+    // Define fillable fields
     protected $fillable = [
         'emp_no',
         'first_name',
@@ -17,6 +17,6 @@ class Employee extends Model
         'gender',
         'birth_date',
         'hire_date',
-        'images',
+        'image_path', // ใช้คอลัมน์ image_path
     ];
 }

@@ -67,13 +67,13 @@ class EmployeeController extends Controller
         $latestEmpNo = DB::table('employees')->max('emp_no') ?? 0;
         $newEmpNo = $latestEmpNo + 1;
 
-        $imagesPath = null;
         if ($request->hasFile('images')) {
-            $images = $request->file('images');
-            $imagesPath = $images->storeAs('employee_images', $newEmpNo . '.' . $images->getClientOriginalExtension(), 'public');
+            $imagesPath = $request->file('images')->store('employees', 'public');
+            $validated['images'] = $imagesPath;
         }
 
-        DB::transaction(function () use ($validated, $imagesPath, $newEmpNo) {
+        DB::transaction(function () use ($validated, $newEmpNo, $request, $imagesPath) {
+
             DB::table('employees')->insert([
                 'emp_no' => $newEmpNo,
                 'first_name' => $validated['first_name'],
@@ -81,7 +81,7 @@ class EmployeeController extends Controller
                 'gender' => $validated['gender'],
                 'birth_date' => $validated['birth_date'],
                 'hire_date' => $validated['hire_date'],
-                'images' => $imagesPath,
+                'images' => $validated['images'] ?? null,
             ]);
 
             DB::table('dept_emp')->insert([
